@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 19900000}
   - component: {fileID: 8200000}
   - component: {fileID: 11400000}
+  - component: {fileID: 114008986406552074}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -459,7 +460,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationX:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -500,7 +501,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -3572,3 +3573,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}
   m_IsPrefabParent: 1
+--- !u!114 &114008986406552074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdf1aff6f18795847b8a398e1b3d372a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifetime: 1

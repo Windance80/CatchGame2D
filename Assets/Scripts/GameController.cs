@@ -6,38 +6,45 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
 	public Camera cam;
-	public GameObject ball;
+	public GameObject[] balls;
 	public float timeLeft;
 	public Text timerText;
 	public GameObject gameOverText;
 	public GameObject restartButton;
+	public GameObject splashScreen;
+	public GameObject startButton;
+	public Hatcontroller hatController;
 
 	private float maxWidth;
 	private SpriteRenderer render;
+	private bool playing;
 
 	void Start () {
 		if (cam == null)
 			cam = Camera.main;
-		render = ball.GetComponent<SpriteRenderer> ();
-
+		render = balls[0].GetComponent<SpriteRenderer> ();
+		playing = false;
 		Vector3 upperCorner = new Vector3 (Screen.width, Screen.height, 0.0f);
 		Vector3 targetWidth = cam.ScreenToWorldPoint (upperCorner);
 		float ballWidth = render.bounds.extents.x;
 		maxWidth = targetWidth.x - ballWidth;
-		StartCoroutine (Spawn ());
 		UpdateText();
 	}
 
 	void FixedUpdate() {
-		timeLeft -= Time.deltaTime;
-		if (timeLeft < 0)
-			timeLeft = 0;		
-		UpdateText();
+		if (playing) {
+			timeLeft -= Time.deltaTime;
+			if (timeLeft < 0)
+				timeLeft = 0;		
+			UpdateText ();
+		}
 	}
 
 	IEnumerator Spawn() {
 		yield return new WaitForSeconds (2.0f);
+		playing = true;
 		while (timeLeft > 0) {
+			GameObject ball = balls [Random.Range (0, balls.Length)];
 			Vector3 spawnPosition = new Vector3 (Random.Range (-maxWidth, maxWidth), transform.position.y, 0.0f);
 			Quaternion spawnRotation = Quaternion.identity;
 			Instantiate (ball, spawnPosition, spawnRotation);
@@ -51,5 +58,12 @@ public class GameController : MonoBehaviour {
 
 	void UpdateText() {
 		timerText.text = "Time Left:\n" + Mathf.RoundToInt (timeLeft);
+	}
+
+	public void StartGame() {		
+		splashScreen.SetActive (false);
+		startButton.SetActive(false);
+		hatController.ToggleControl (true);
+		StartCoroutine (Spawn ());
 	}
 }
